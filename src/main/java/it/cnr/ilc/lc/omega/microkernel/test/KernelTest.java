@@ -6,6 +6,8 @@
 package it.cnr.ilc.lc.omega.microkernel.test;
 
 import it.cnr.ilc.lc.library.test.Lib;
+import it.cnr.ilc.lc.omega.microkernel.test.component.ClientComponent;
+import it.cnr.ilc.lc.omega.microkernel.test.component.TestComponent;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
@@ -14,12 +16,19 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
+import sirius.kernel.Classpath;
+import sirius.kernel.di.std.Part;
+import sirius.kernel.di.std.Register;
 
 /**
  *
  * @author angelo
  */
+
+@Register(classes = KernelTest.class)
 public class KernelTest {
+    
+   //private static final Part<ClientComponent> component = Part.of(ClientComponent.class);
 
     private static final int DEFAULT_PORT = 7777;
     private static ClassLoader loader = ClassLoader.getSystemClassLoader();
@@ -117,11 +126,26 @@ public class KernelTest {
         try {
             System.out.println("IPL completed - Loading Sirius as stage2...");
             System.out.println();
+            System.setProperty("debug", "true");
             Class.forName("sirius.kernel.Setup", true, loader)
                     .getMethod("createAndStartEnvironment", ClassLoader.class)
                     .invoke(null, loader);
-
+            
+//            final KernelTest test = new KernelTest();
+//            Thread testThread = new Thread(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//                    test.test();
+//                }
+//            });
+//            testThread.start();
+//            
+            
+            test();
             waitForLethalConnection(port);
+            
             System.exit(0);
         } catch (Throwable e) {
             e.printStackTrace();
@@ -166,5 +190,18 @@ public class KernelTest {
             }
         }
         return urls;
+    }
+
+    private static void test() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.err.println("Test in Main!");
+         Classpath cp = sirius.kernel.Sirius.getClasspath();
+        for (URL url : cp.getComponentRoots()) {
+             System.out.println(url);
+        }
+        
+        
+//        TestComponent testcomponent = new TestComponent();
+//        testcomponent.test();
     }
 }
