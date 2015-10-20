@@ -29,6 +29,9 @@ import sirius.kernel.di.std.Register;
 public class KernelTest {
     
    //private static final Part<ClientComponent> component = Part.of(ClientComponent.class);
+    
+    @Part
+    private static ClientComponent component;
 
     private static final int DEFAULT_PORT = 7777;
     private static ClassLoader loader = ClassLoader.getSystemClassLoader();
@@ -194,14 +197,12 @@ public class KernelTest {
 
     private static void test() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        System.err.println("Test in Main!");
-         Classpath cp = sirius.kernel.Sirius.getClasspath();
-        for (URL url : cp.getComponentRoots()) {
-             System.out.println(url);
-        }
+        System.err.println("Test component in MicroKernel!");
+//        Classpath cp = sirius.kernel.Sirius.getClasspath();
+//        for (URL url : cp.getComponentRoots()) {
+//             System.out.println(url);
+//        }
         
-        
-//        TestComponent testcomponent = new TestComponent();
-//        testcomponent.test();
+        component.go();
     }
 }
