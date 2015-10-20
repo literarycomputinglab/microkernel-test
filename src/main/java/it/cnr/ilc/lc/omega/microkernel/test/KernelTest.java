@@ -5,9 +5,7 @@
  */
 package it.cnr.ilc.lc.omega.microkernel.test;
 
-import it.cnr.ilc.lc.library.test.Lib;
 import it.cnr.ilc.lc.omega.microkernel.test.component.ClientComponent;
-import it.cnr.ilc.lc.omega.microkernel.test.component.TestComponent;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
@@ -16,7 +14,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
-import sirius.kernel.Classpath;
 import sirius.kernel.di.std.Part;
 import sirius.kernel.di.std.Register;
 
@@ -38,7 +35,7 @@ public class KernelTest {
 
     public static void main(String[] args) {
         String test = "una stringa di prova";
-        String res = Lib.cut(1, 3, test);
+        String res = test;
         System.err.println(res);
 
         boolean kill = Boolean.parseBoolean(System.getProperty("kill"));
